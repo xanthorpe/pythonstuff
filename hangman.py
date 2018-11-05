@@ -12,12 +12,12 @@ class Hangman:
         print(self.blank_string)
 
     def process_guess(self, guess):
-        if guess != hidden_word:
-            lives = int(lives) - 1
-            draw_hangman(lives)
-        else:
-            blank_string = "uffh"
-        print(blank_string)
+        char = guess
+        if char in self.hidden_word:
+            x = int(self.hidden_word.index(char))
+            return (self.blank_string[:x] + char + self.blank_string[x+1:])
+        if char not in self.hidden_word:
+            return self.draw_hangman(self.lives - 1)
 
     def find_word(self):
         #This method is complete
@@ -42,14 +42,15 @@ class Hangman:
             print ("=========\n ||     |\n ||     O \n ||    /|\\\n ||    / \\\n ||\n/  \\")
 
     def won_game(self):
-        pass #Your code here (thios should be called from play)
+        while self.lives > 0:
+            self.process_guess(self.guess)
 
-    def play(self):
+    def play(self):s
+        print(self.draw_hangman(6))
         print("Guess the word")
         print(game.blank_string)
-        guess = input()
-        game.process_guess(guess)
-
+        self.guess = input()
+        self.won_game()
 
 
 if __name__ == "__main__":
